@@ -2,6 +2,10 @@
 
 This repository contains some basic zerker example code, and you are welcome to provide a better case.
 
+[https://github.com/flutterkit/zerker](https://github.com/flutterkit/zerker)  
+
+[https://flutterkit.github.io/zerkerdocs/](https://flutterkit.github.io/zerkerdocs/)
+
 ## Example
 
 ### 1. A basic zerker example
