@@ -14,5 +14,10 @@ Please check the code[https://github.com/flutterkit/zerker-samples/tree/master/s
 
 ![img](https://flutterkit.github.io/zerkerdocs/images/example/example1.gif)
 
+### 2. Test multiple Zerker Apps
+Please check the code[https://github.com/flutterkit/zerker-samples/tree/master/multiple_applications](https://github.com/flutterkit/zerker-samples/tree/master/multiple_applications)
+
+![img](https://flutterkit.github.io/zerkerdocs/images/example/example3.gif)
+
 ## Tutorials
 For detailed tutorials you can check out here [https://flutterkit.github.io/zerkerdocs/guide/tutorial.html](https://flutterkit.github.io/zerkerdocs/guide/tutorial.html)
