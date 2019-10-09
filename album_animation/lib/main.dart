@@ -121,23 +121,25 @@ class MyZKApp extends ZKApp {
     Map<String, double> targetObj = {};
     switch (switchAnimationType) {
       case "Zoom":
-        _currCon.scale.x = .1;
-        _currCon.scale.y = .1;
+        _currCon.scale.x = direction == "next" ? .1 : 1.5;
+        _currCon.scale.y = direction == "next" ? .1 : 1.5;
         _currCon.alpha = 0;
         _currCon.rotation = 0;
         targetObj["alpha"] = 0;
         targetObj["scaleY"] = .1;
+        targetObj["scaleX"] = direction == "next" ? 1.5 : .1;
 
         easeInFunc = Ease.back.easeOut;
         easeOutFunc = Ease.back.easeIn;
         break;
 
       case "Rotate":
+        double dis = 220;
         _currCon.scale.x = .1;
         _currCon.scale.y = .1;
         _currCon.alpha = 0;
-        _currCon.rotation = 220;
-        targetObj["rotation"] = -220;
+        _currCon.rotation = direction == "next" ? dis : -dis;
+        targetObj["rotation"] = direction == "next" ? -dis : dis;
         targetObj["alpha"] = 0;
         targetObj["scaleX"] = .1;
         targetObj["scaleY"] = .1;
@@ -147,30 +149,30 @@ class MyZKApp extends ZKApp {
         break;
 
       case "Move":
+        double dis = 300;
         _currCon.scale.x = .3;
         _currCon.scale.y = .3;
         _currCon.alpha = 0;
         _currCon.rotation = 0;
-        _currCon.position.x = cusSize.width / 2 - 300;
-
-        targetObj["x"] = cusSize.width / 2 + 300;
+        _currCon.position.x = direction == "next" ? cusSize.width / 2 - dis : cusSize.width / 2 + dis;
+        targetObj["x"] = direction == "next" ? cusSize.width / 2 + dis : cusSize.width / 2 - dis;
         targetObj["rotation"] = 0;
         targetObj["alpha"] = 0;
         targetObj["scaleX"] = .3;
         targetObj["scaleY"] = .3;
 
         easeInFunc = Ease.quart.easeOut;
-        easeOutFunc = Ease.quart.easeIn;
+        easeOutFunc = Ease.cubic.easeOut;
         break;
 
       case "Expand":
+        double dis = 200;
         _currCon.scale.x = .1;
         _currCon.scale.y = 1;
         _currCon.alpha = 0;
         _currCon.rotation = 0;
-        _currCon.position.x = cusSize.width / 2 - 200;
-
-        targetObj["x"] = cusSize.width / 2 + 200;
+        _currCon.position.x = direction == "next" ? cusSize.width / 2 - dis : cusSize.width / 2 + dis;
+        targetObj["x"] = direction == "next" ? cusSize.width / 2 + dis : cusSize.width / 2 - dis;
         targetObj["rotation"] = 0;
         targetObj["alpha"] = 0;
         targetObj["scaleX"] = .1;
@@ -191,7 +193,7 @@ class MyZKApp extends ZKApp {
         .start();
 
     ZKTween(_prevCon).to(targetObj, time).easing(easeOutFunc).onComplete((obj) {
-      _empty(_prevCon);
+      _prevCon.removeAllChild();
     }).start();
 
     _enabled = false;
@@ -221,7 +223,10 @@ class MyZKApp extends ZKApp {
       }
     }
 
-    _empty(_currCon).addChild(_albumList[_currIndex]);
+    _currCon
+      ..removeAllChild()
+      ..addChild(_albumList[_currIndex]);
+
     _addChildTo(_currCon, stage);
   }
 
@@ -232,14 +237,6 @@ class MyZKApp extends ZKApp {
     } else {
       parent.addChild(sub);
     }
-  }
-
-  ZKContainer _empty(ZKContainer con) {
-    for (int i = con.children.length - 1; i >= 0; i--) {
-      con.removeChild(con.children[i]);
-    }
-
-    return con;
   }
 
   @override
